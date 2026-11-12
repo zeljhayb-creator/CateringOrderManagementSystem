@@ -1,10 +1,10 @@
 ﻿//zj
-using System;
-
 namespace CateringOrderManagementSystem
 {
     internal class Program
     {
+        private static string? customerName;
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Catering Order Management System");
@@ -18,7 +18,7 @@ namespace CateringOrderManagementSystem
             string CateringAcc = "Zeljhay001";
             string checkLogin = Console.ReadLine();
 
-            
+
             string eventType = "";
             string eventDate = "";
             string numberOfGuests = "";

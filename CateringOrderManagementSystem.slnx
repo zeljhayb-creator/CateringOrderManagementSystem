@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="CateringBusinessLogic/CateringBusinessLogic.csproj" Id="f0c28829-1018-4d59-9798-d92f477a5ed4" />
+  <Project Path="CateringDataLogic/CateringDataLogic.csproj" Id="4d7de599-192e-4f07-879d-72171635520b" />
   <Project Path="CateringOrderManagementSystem/CateringOrderManagementSystem.csproj" />
 </Solution>
