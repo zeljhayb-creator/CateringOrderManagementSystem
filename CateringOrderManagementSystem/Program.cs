@@ -1,4 +1,6 @@
 ﻿//zj
+using CateringBusinessLogic;
+using CateringDataLogic;
 namespace CateringOrderManagementSystem
 {
     internal class Program
@@ -7,6 +9,9 @@ namespace CateringOrderManagementSystem
 
         static void Main(string[] args)
         {
+            ICateringRepository repository = new CateringRepository();
+            CateringService cateringService = new CateringService(repository);
+
             Console.WriteLine("Welcome to Catering Order Management System");
 
             Console.WriteLine("Enter 1 - for Catering Account");
@@ -16,7 +21,7 @@ namespace CateringOrderManagementSystem
             Console.Write("User Input: ");
 
             string CateringAcc = "Zeljhay001";
-            string checkLogin = Console.ReadLine();
+            string checkLogin = Console.ReadLine() ?? string.Empty;
 
 
             string eventType = "";
@@ -26,7 +31,7 @@ namespace CateringOrderManagementSystem
             string quantity = "";
             string orderStatus = "Pending";
 
-            bool orderSubmitted = false;
+            
 
             while (checkLogin != "x")
             {
@@ -34,7 +39,7 @@ namespace CateringOrderManagementSystem
                 if (checkLogin == "1")
                 {
                     Console.Write("Enter Catering Account: ");
-                    string CateringInput = Console.ReadLine();
+                    string CateringInput = Console.ReadLine() ?? string.Empty;
 
                     if (CateringAcc == CateringInput)
                     {
@@ -51,15 +56,22 @@ namespace CateringOrderManagementSystem
                         {
                             case 1:
 
-                                if (orderSubmitted)
+                                List<CateringOrder> orders = cateringService.GetOrders();
+
+                                if (orders.Count > 0)
                                 {
-                                    Console.WriteLine("\nCustomer Name: " + customerName);
-                                    Console.WriteLine("Event Type: " + eventType);
-                                    Console.WriteLine("Event Date: " + eventDate);
-                                    Console.WriteLine("Number of Guests: " + numberOfGuests);
-                                    Console.WriteLine("Food Order: " + foodOrder);
-                                    Console.WriteLine("Quantity: " + quantity);
-                                    Console.WriteLine("Order Status: " + orderStatus);
+                                    foreach (CateringOrder order in orders)
+                                    {
+                                        Console.WriteLine("\nOrder ID: " + order.OrderId);
+                                        Console.WriteLine("Customer Name: " + order.CustomerName);
+                                        Console.WriteLine("Event Type: " + order.EventType);
+                                        Console.WriteLine("Event Date: " + order.EventDate);
+                                        Console.WriteLine("Number of Guests: " + order.NumberOfGuests);
+                                        Console.WriteLine("Food Order: " + order.FoodOrder);
+                                        Console.WriteLine("Quantity: " + order.Quantity);
+                                        Console.WriteLine("Order Status: " + order.OrderStatus);
+                                        Console.WriteLine("----------------------------");
+                                    }
                                 }
                                 else
                                 {
@@ -70,10 +82,33 @@ namespace CateringOrderManagementSystem
 
                             case 2:
 
-                                if (orderSubmitted)
+                                List<CateringOrder> ordersToAccept = cateringService.GetOrders();
+
+                                if (ordersToAccept.Count > 0)
                                 {
-                                    orderStatus = "Accepted";
-                                    Console.WriteLine("\nCustomer order has been accepted!");
+                                    Console.WriteLine("\nCustomer Orders:");
+
+                                    foreach (CateringOrder order in ordersToAccept)
+                                    {
+                                        Console.WriteLine("Order ID: " + order.OrderId);
+                                        Console.WriteLine("Customer Name: " + order.CustomerName);
+                                        Console.WriteLine("Order Status: " + order.OrderStatus);
+                                        Console.WriteLine("----------------------------");
+                                    }
+
+                                    Console.Write("\nEnter Order ID to accept: ");
+                                    int orderId = Convert.ToInt32(Console.ReadLine());
+
+                                    bool accepted = cateringService.AcceptOrder(orderId);
+
+                                    if (accepted)
+                                    {
+                                        Console.WriteLine("Customer order has been accepted!");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Invalid Order ID.");
+                                    }
                                 }
                                 else
                                 {
@@ -105,13 +140,13 @@ namespace CateringOrderManagementSystem
                     customerName = Console.ReadLine();
 
                     Console.Write("Enter event type: ");
-                    eventType = Console.ReadLine();
+                    eventType = Console.ReadLine() ?? string.Empty;
 
                     Console.Write("Enter event date: ");
-                    eventDate = Console.ReadLine();
+                    eventDate = Console.ReadLine() ?? string.Empty;
 
                     Console.Write("Enter number of guests: ");
-                    numberOfGuests = Console.ReadLine();
+                    numberOfGuests = Console.ReadLine() ?? string.Empty;
 
                     Console.WriteLine("\nAvailable Food Menu");
                     Console.WriteLine("1 - Chicken");
@@ -120,7 +155,7 @@ namespace CateringOrderManagementSystem
                     Console.WriteLine("4 - Fish");
 
                     Console.Write("Choose your food: ");
-                    string foodChoice = Console.ReadLine();
+                    string foodChoice = Console.ReadLine() ?? string.Empty;
 
                     switch (foodChoice)
                     {
@@ -148,10 +183,22 @@ namespace CateringOrderManagementSystem
                     if (foodOrder != "Invalid food selection")
                     {
                         Console.Write("Enter quantity: ");
-                        quantity = Console.ReadLine();
+                        quantity = Console.ReadLine() ?? string.Empty;
 
-                        orderSubmitted = true;
-                        orderStatus = "Pending";
+                        CateringOrder order = new CateringOrder
+                        {
+                            CustomerName = customerName ?? string.Empty,
+                            EventType = eventType,
+                            EventDate = eventDate,
+                            NumberOfGuests = numberOfGuests,
+                            FoodOrder = foodOrder,
+                            Quantity = quantity
+                        };
+
+                        cateringService.SubmitOrder(order);
+
+                        
+                        orderStatus = order.OrderStatus;
 
                         Console.WriteLine("\nOrder submitted successfully!");
                         Console.WriteLine("Thank you for your order, " + customerName + "!");
@@ -174,7 +221,7 @@ namespace CateringOrderManagementSystem
                 Console.WriteLine("Enter x - to exit");
 
                 Console.Write("User Input: ");
-                checkLogin = Console.ReadLine();
+                checkLogin = Console.ReadLine() ?? string.Empty;
             }
 
             Console.WriteLine("Thank you for using Catering Order Management System!");
