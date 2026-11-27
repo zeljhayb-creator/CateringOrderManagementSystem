@@ -64,6 +64,7 @@
             btnAdminLogin.TabIndex = 2;
             btnAdminLogin.Text = "Admin Login";
             btnAdminLogin.UseVisualStyleBackColor = true;
+            btnAdminLogin.Click += btnAdminLogin_Click;
             // 
             // btnExit
             // 

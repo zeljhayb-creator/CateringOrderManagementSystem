@@ -24,5 +24,12 @@ namespace CateringSystem.WinForms
                 form.ShowDialog(this);
             }
         }
+        private void btnAdminLogin_Click(object sender, EventArgs e)
+        {
+            using (frmAdminLogin form = new frmAdminLogin())
+            {
+                form.ShowDialog(this);
+            }
+        }
     }
 }
