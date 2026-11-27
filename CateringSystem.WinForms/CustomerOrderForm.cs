@@ -66,7 +66,7 @@ namespace CateringSystem.WinForms
 
 
             cateringService.SubmitOrder(order);
-            
+
 
             MessageBox.Show("Your catering order has been submitted successfully!",
                 "Order Submitted",
@@ -89,6 +89,31 @@ namespace CateringSystem.WinForms
         }
 
         private void frmCustomerOrder_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboFoodOrder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFoodOrder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblQuantity_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCustomerName_Click(object sender, EventArgs e)
         {
 
         }
