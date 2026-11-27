@@ -41,5 +41,23 @@ namespace CateringBusinessLogic
 
             return true;
         }
+
+        public bool DeclineOrder(int orderId)
+        {
+            List<CateringOrder> orders = repository.GetOrders();
+
+            CateringOrder? order = orders.Find(o => o.OrderId == orderId);
+
+            if (order == null)
+            {
+                return false;
+            }
+
+            order.OrderStatus = "Declined";
+
+            repository.UpdateOrder(order);
+
+            return true;
+        }
     }
 }

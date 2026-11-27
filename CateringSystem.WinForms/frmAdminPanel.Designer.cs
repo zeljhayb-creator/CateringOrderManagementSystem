@@ -33,6 +33,7 @@
             btnViewOrders = new Button();
             btnAcceptOrder = new Button();
             btnExit = new Button();
+            btnDeclineOrder = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
             SuspendLayout();
             // 
@@ -62,7 +63,7 @@
             // 
             // btnViewOrders
             // 
-            btnViewOrders.Location = new Point(292, 474);
+            btnViewOrders.Location = new Point(209, 474);
             btnViewOrders.Name = "btnViewOrders";
             btnViewOrders.Size = new Size(130, 40);
             btnViewOrders.TabIndex = 2;
@@ -72,7 +73,7 @@
             // 
             // btnAcceptOrder
             // 
-            btnAcceptOrder.Location = new Point(457, 474);
+            btnAcceptOrder.Location = new Point(364, 474);
             btnAcceptOrder.Name = "btnAcceptOrder";
             btnAcceptOrder.Size = new Size(130, 40);
             btnAcceptOrder.TabIndex = 3;
@@ -82,7 +83,7 @@
             // 
             // btnExit
             // 
-            btnExit.Location = new Point(617, 474);
+            btnExit.Location = new Point(855, 474);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(100, 40);
             btnExit.TabIndex = 4;
@@ -90,11 +91,22 @@
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
+            // btnDeclineOrder
+            // 
+            btnDeclineOrder.Location = new Point(518, 474);
+            btnDeclineOrder.Name = "btnDeclineOrder";
+            btnDeclineOrder.Size = new Size(130, 40);
+            btnDeclineOrder.TabIndex = 5;
+            btnDeclineOrder.Text = "Decline Order";
+            btnDeclineOrder.UseVisualStyleBackColor = true;
+            btnDeclineOrder.Click += btnDeclineOrder_Click;
+            // 
             // frmAdminPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(984, 561);
+            Controls.Add(btnDeclineOrder);
             Controls.Add(btnExit);
             Controls.Add(btnAcceptOrder);
             Controls.Add(btnViewOrders);
@@ -114,5 +126,6 @@
         private Button btnViewOrders;
         private Button btnAcceptOrder;
         private Button btnExit;
+        private Button btnDeclineOrder;
     }
 }

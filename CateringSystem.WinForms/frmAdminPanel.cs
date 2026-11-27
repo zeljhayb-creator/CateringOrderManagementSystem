@@ -58,6 +58,31 @@ namespace CateringSystem.WinForms
                 MessageBox.Show("Unable to accept this order.");
             }
         }
+        private void btnDeclineOrder_Click(object sender, EventArgs e)
+        {
+            if (dgvOrders.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select an order first.");
+                return;
+            }
+
+            int orderId = Convert.ToInt32(
+                dgvOrders.SelectedRows[0].Cells["OrderId"].Value
+            );
+
+            bool declined = cateringService.DeclineOrder(orderId);
+
+            if (declined)
+            {
+                MessageBox.Show("Order declined successfully!");
+
+                btnViewOrders_Click(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("Unable to decline this order.");
+            }
+        }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
