@@ -34,10 +34,12 @@ namespace CateringSystem.WinForms
             {
                 MessageBox.Show("Login Successful!");
 
-                frmMain mainForm = new frmMain();
-                mainForm.Show();
-
                 this.Hide();
+
+                frmAdminPanel adminPanel = new frmAdminPanel();
+                adminPanel.ShowDialog();
+
+                this.Close();
             }
         }
     }
